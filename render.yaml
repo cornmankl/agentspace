@@ -1,0 +1,25 @@
+services:
+  # AGENTSPACE Backend API
+  - type: web
+    name: agentspace-backend
+    env: node
+    region: singapore
+    plan: free
+    branch: main
+    rootDir: apps/server
+    buildCommand: npm install && npm run build
+    startCommand: node dist/index.js
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 10000
+      - key: GLM_API_KEY
+        sync: false
+      - key: GLM_API_URL
+        value: https://api.z.ai/api/coding/paas/v4
+      - key: DATA_DIR
+        value: /opt/render/project/src/data
+      - key: CORS_ORIGINS
+        value: "*"
